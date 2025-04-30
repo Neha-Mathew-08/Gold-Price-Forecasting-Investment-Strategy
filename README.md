@@ -1,4 +1,5 @@
 Gold Price Forecasting & Investment Strategy
+
 This project focuses on building a Gold Price Forecasting Model using daily historical gold prices from 2018 to 2022. The model will leverage machine learning and time series techniques to predict future gold prices. Additionally, we will develop a simulated investment strategy based on these price predictions to evaluate profitability and risk.
 
 Project Overview
