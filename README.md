@@ -29,9 +29,11 @@ A comprehensive data science project forecasting daily gold prices from 2018 to 
 
 gold-price-forecasting-project/
 
-├── notebooks/ # Stepwise Jupyter notebooks
+├── notebook/ # The complete notebook
 
-├── src/ # Python modules for data processing & models
+├── data_collection/ #Python code to collect required data from Yahoo Finance
+
+├── src/ # Python modules for data processing & Exploratory Data Analysis
 
 ├── backtests/ # Trading strategy simulation code
 
