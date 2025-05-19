@@ -31,12 +31,6 @@ gold-price-forecasting-project/
 
 ├── notebook/ # The complete notebook
 
-├── data_collection/ #Python code to collect required data from Yahoo Finance
-
-├── src/ # Python modules for data processing & Exploratory Data Analysis
-
-├── backtests/ # Trading strategy simulation code
-
 ├── streamlit_app/ # Dashboard code
 
 ├── models/ # Saved ML models
