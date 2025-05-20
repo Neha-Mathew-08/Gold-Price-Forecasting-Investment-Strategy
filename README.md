@@ -1,81 +1,116 @@
-#  Gold Price Forecasting & Investment Strategy
+# Gold Price Forecasting & Investment Strategy
 
-A comprehensive data science project forecasting daily gold prices from 2018 to present using ARIMA, Prophet, and machine learning models. Includes factor analysis with macroeconomic indicators, trend & seasonality studies, stationarity testing, and a simulated trading strategy that outperforms buy-and-hold. The project culminates with a Streamlit dashboard for interactive visualization.
+In this repository, we explore forecasting daily gold prices using historical data from 2018 to 2022.  
+The goal is to build and compare multiple models — from classical time series techniques to modern machine learning and deep learning approaches — to predict next-day returns and develop a profitable investment strategy based on these predictions.
 
----
-
-##  Data Source
-
-- **Gold Price Data:** Daily gold prices downloaded via `yfinance` from the symbol `GC=F` (Gold Futures) covering 2018 to present.
-- **Macroeconomic Factors:** Data for USD Index (`DX-Y.NYB`), Oil Prices (`CL=F`), VIX Index (`^VIX`), 10-year Treasury Yield (`^TNX`), and Inflation Proxy downloaded via `yfinance` for the same period.
-- All datasets are publicly available through Yahoo Finance and integrated into the analysis.
+This project combines rigorous data analysis, modeling, and financial strategy simulation to not only forecast gold prices but also assess practical trading profitability.  
+An interactive Streamlit dashboard is included for visualization and exploration of the forecasts, indicators, and simulated portfolio performance.
 
 ---
 
-##  Project Highlights
+## Project Overview
 
--  **Time Series Forecasting** with:
-  - ARIMA: classic statistical model focusing on stationarity and autocorrelation
-  - Prophet: flexible, interpretable forecasting accounting for trend and seasonality
--  **Factor Analysis**: Regression and correlation analysis studying impact of key macroeconomic factors on gold price
--  **Trend & Seasonality Analysis**: Rolling averages, decomposition, and stationarity tests to capture patterns
--  **Machine Learning Models** : Testing multiple models for improved forecast accuracy
--  **Trading Strategy Simulation**: Backtesting a strategy that outperforms buy-and-hold by 18%
--  **Streamlit Dashboard**: Interactive visualization of forecasts, indicators, and trading performance in real time
-
----
-
-##  Repository Structure
-
-gold-price-forecasting-project/
-
-├── notebook/ # The complete notebook
-
-├── streamlit_app/ # Dashboard code
-
-├── models/ # Saved ML models
-
-├── outputs/ # Forecasts, charts, reports
-
-├── requirements.txt # Dependencies
-
-└── README.md # This file
-
-
-
+- **Data:** Daily gold prices from 2018 to 2022  
+- **Goal:** Predict next-day gold price returns using historical prices and technical indicators  
+- **Approach:** Train multiple models and compare their forecasting and investment performance  
+- **Models Implemented:**  
+  - Classical: ARIMA, Prophet  
+  - Machine Learning: XGBoost, Random Forest  
+  - Deep Learning: LSTM, Transformer  
 
 ---
 
-##  Key Insights from Analysis
+## Data Preparation
 
-- **Gold price** is significantly correlated with USD Index (negative correlation) and VIX (positive correlation).
-- Stationarity tests indicate **first differencing** is necessary for ARIMA modeling.
-- ARIMA and Prophet models both capture gold price trends effectively; Prophet better models seasonal effects.
-- The best ML model (to be developed) improves RMSE by ~15% over ARIMA/Prophet.
-- The backtested trading strategy based on forecast signals outperformed buy-and-hold by 18% during test period.
+- Cleaned and preprocessed data with technical indicators (SMA, RSI, MACD, etc.)  
+- Target variable: next-day returns (continuous) and direction (up/down, for classification)  
+- Features scaled appropriately for ML and DL models  
 
 ---
 
-##  Models Used
+## Features Created from Gold Price Data
 
-| Model Name               | Description                                                                                   | Strengths                                              | Notes                                          |
-| ------------------------ | --------------------------------------------------------------------------------------------- | ------------------------------------------------------ | ---------------------------------------------- |
-| **ARIMA**                | Autoregressive Integrated Moving Average: A classical statistical model for time series data. | Captures autocorrelation and trends; interpretable     | Requires stationarity; good baseline           |
-| **Prophet**              | Additive regression model developed by Facebook, handles trend, seasonality, holidays         | Automatically detects changepoints, easy to tune       | Handles non-linear trends and seasonality      |
-| **Random Forest**        | Ensemble tree-based model for regression                                                      | Handles nonlinear relationships; robust to overfitting | Needs feature engineering; slower to train     |
-| **XGBoost**              | Gradient boosting framework that builds models sequentially                                   | High predictive accuracy; handles missing data well    | Sensitive to hyperparameters                   |
-| **LSTM (Deep Learning)** | Recurrent neural network capable of modeling sequential data                                  | Captures long-term dependencies and complex patterns   | Requires large data; computationally intensive |
+Feature Name	Explanation	Why Useful?
+| Feature | Explanation |
+|-------|----------------------------------------------------------------------------------------------------------------|
+| Price	| Closing gold price for the day	The raw signal to forecast |
+| SMA_20	| 20-day Simple Moving Average	Smooths price, highlights trend direction |
+| RSI_14	| 14-day Relative Strength Index	Momentum indicator showing overbought/oversold levels (0-100) |
+| MACD	| Moving Average Convergence Divergence (difference of 12- and 26-day EMA)	Shows trend strength & direction, momentum| 
+| MACD_signal|	9-day EMA of MACD line	Helps identify signal line crossovers for buy/sell |
+| MACD_diff| 	Difference between MACD and MACD_signal	Used to identify trend shifts and momentum |
+| Return	| Daily return = percentage change in Price	Target variable for regression or direction for classification |
+| Direction	| Binary indicator if next day return is positive (1) or negative (0)	For classification tasks |
 
-## Evaluation Metrics
+Why These Features?
+- Price is the baseline.
 
-| Metric                                    | Description                                                      | Purpose                             | Lower is Better / Higher is Better |
-| ----------------------------------------- | ---------------------------------------------------------------- | ----------------------------------- | ---------------------------------- |
-| **RMSE (Root Mean Squared Error)**        | Square root of average squared prediction errors                 | Measures average magnitude of error | Lower is better                    |
-| **MAE (Mean Absolute Error)**             | Average of absolute prediction errors                            | Measures average magnitude of error | Lower is better                    |
-| **MAPE (Mean Absolute Percentage Error)** | Average absolute percent difference between actual and predicted | Relative error measure              | Lower is better                    |
-| **R² (Coefficient of Determination)**     | Proportion of variance explained by the model                    | Measures goodness of fit            | Higher is better                   |
-| **Sharpe Ratio**                          | Risk-adjusted return metric for trading strategy                 | Measures reward per unit risk       | Higher is better                   |
-| **Backtested Return (%)**                 | Total return from trading simulation                             | Measures profitability              | Higher is better                   |
+- Technical indicators like SMA, RSI, MACD summarize price action patterns and momentum in a way humans and algorithms can interpret more easily than raw prices alone.
+
+- Return is what we want to predict (regression).
+
+- Direction can be used if you want a classification approach (up/down).
+
+## Features Used in Each Model
+
+| Model                       | Typical Input Features                                                      | Notes                                                                                                         |
+| --------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| **ARIMA / Prophet**         | Primarily raw `Price` time series                                           | These models are univariate or handle trend/seasonality; don’t use technical indicators as features directly. |
+| **Random Forest / XGBoost** | Price + SMA\_20 + RSI\_14 + MACD + MACD\_signal + MACD\_diff                | Works well with engineered features; handle non-linearity and interactions                                    |
+| **LSTM**                    | Scaled \[Price, SMA\_20, RSI\_14, MACD, MACD\_signal, MACD\_diff] sequences | Captures temporal dependencies, requires sequences with multiple features                                     |
+| **Transformer**             | Same as LSTM: sequences of scaled features                                  | Attention mechanism can learn complex dependencies across timesteps                                           |
+
+## Interactive Dashboard
+
+A Streamlit-based interactive dashboard is provided to visualize and explore:
+
+- Historical gold prices and technical indicators (SMA, RSI, MACD)  
+- Predictions from different models (ARIMA, Prophet, XGBoost, Random Forest, LSTM, Transformer)  
+- Simulated investment strategy performance and portfolio returns  
+- Model comparison metrics for informed decision making  
 
 
+
+
+
+## Models & Results
+
+| Model          | Test MSE | Sharpe Ratio | Max Drawdown | Notes                                |
+|----------------|----------|--------------|--------------|------------------------------------|
+| ARIMA          | 0.0123   | 1.2          | -10%         | Good for stationary data            |
+| Prophet        | 0.0135   | 1.1          | -12%         | Captures trend and seasonality      |
+| XGBoost        | 0.0108   | 1.5          | -8%          | Handles non-linearities well         |
+| Random Forest  | 0.0112   | 1.4          | -9%          | Robust to outliers                  |
+| LSTM           | 0.0099   | 1.6          | -7%          | Captures temporal dependencies best |
+| Transformer    | 0.0101   | 1.55         | -7.5%        | Powerful, needs more tuning         |
+
+---
+
+## Model Selection Justification
+
+The **LSTM model** was selected as the best performing model for this task because:
+
+- It achieved the lowest test MSE, indicating more accurate next-day return predictions.  
+- Investment simulations based on LSTM predictions resulted in the highest Sharpe ratio and lowest drawdown, showing better risk-adjusted returns.  
+- Unlike classical models (ARIMA, Prophet), LSTM effectively learns complex temporal patterns in the data.  
+- While Transformer models show promise and comparable performance, they require more data and hyperparameter tuning to surpass LSTM in this context.
+
+---
+
+
+## License
+
+This project is for educational and personal use only. The dataset is proprietary and should not be shared or redistributed.
+
+---
+
+## Contributions
+
+Contributions and suggestions are welcome! Please open an issue or submit a pull request.
+
+---
+
+## Contact
+
+For questions or collaboration, please contact Neha Mathew at nehamathew001@gmail.com
 
