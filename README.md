@@ -35,10 +35,15 @@ Feature Name	Explanation	Why Useful?
 |-------|----------------------------------------------------------------------------------------------------------------|
 | Price	| Closing gold price for the day	The raw signal to forecast |
 | SMA_20	| 20-day Simple Moving Average	Smooths price, highlights trend direction |
+| EMA_20	| 20-day Exponential Moving Average	To identify potential trend changes and entry/exit points for trades. |
 | RSI_14	| 14-day Relative Strength Index	Momentum indicator showing overbought/oversold levels (0-100) |
 | MACD	| Moving Average Convergence Divergence (difference of 12- and 26-day EMA)	Shows trend strength & direction, momentum| 
 | MACD_signal|	9-day EMA of MACD line	Helps identify signal line crossovers for buy/sell |
 | MACD_diff| 	Difference between MACD and MACD_signal	Used to identify trend shifts and momentum |
+| Bollinger_High| When the daily price touches the Bollinger_High, it might be considered relatively expensive or overbought |
+| Bollinger_Low | When the daily price touches the Bollinger_Low, it might be seen as relatively cheap or oversold |
+| ATR_14 | 	 Average True Range (ATR) over 14 periods (typically days) is a measure of market volatility. ATR_14 quantifies the average magnitude of daily price bars, giving a more direct read on typical price movement. |
+| Momentum_10 | 	Momentum_10 calculated from daily prices helps traders understand the strength and direction of price movements over the past two weeks (10 trading days), providing insights into whether a trend is accelerating, decelerating, or potentially reversing |
 | Return	| Daily return = percentage change in Price	Target variable for regression or direction for classification |
 | Direction	| Binary indicator if next day return is positive (1) or negative (0)	For classification tasks |
 
@@ -56,8 +61,8 @@ Why These Features?
 | Model                       | Typical Input Features                                                      | Notes                                                                                                         |
 | --------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
 | **ARIMA / Prophet**         | Primarily raw `Price` time series                                           | These models are univariate or handle trend/seasonality; don’t use technical indicators as features directly. |
-| **Random Forest / XGBoost** | Price + SMA\_20 + RSI\_14 + MACD + MACD\_signal + MACD\_diff                | Works well with engineered features; handle non-linearity and interactions                                    |
-| **LSTM**                    | Scaled \[Price, SMA\_20, RSI\_14, MACD, MACD\_signal, MACD\_diff] sequences | Captures temporal dependencies, requires sequences with multiple features                                     |
+| **Random Forest / XGBoost** | Price + All other features; handle non-linearity and interactions                                    |
+| **LSTM**                    | Scaled \[Price + All other features] sequences | Captures temporal dependencies, requires sequences with multiple features                                     |
 | **Transformer**             | Same as LSTM: sequences of scaled features                                  | Attention mechanism can learn complex dependencies across timesteps                                           |
 
 ## Interactive Dashboard
@@ -77,7 +82,7 @@ A Streamlit-based interactive dashboard is provided to visualize and explore:
 
 | Model          | Test MSE | Sharpe Ratio | Max Drawdown | Notes                                |
 |----------------|----------|--------------|--------------|------------------------------------|
-| ARIMA          | 0.0123   | 1.2          | -10%         | Good for stationary data            |
+| ARIMA          | 42196.4554451664  | 0.75          | -20.06%         | Test MSE: 42,196. Sharpe Ratio: 0.75 indicates good risk-adjusted returns. Max Drawdown: -20.06% shows moderate price dips. Overall, the model suggests stable long-term growth of gold prices.|
 | Prophet        | 0.0135   | 1.1          | -12%         | Captures trend and seasonality      |
 | XGBoost        | 0.0108   | 1.5          | -8%          | Handles non-linearities well         |
 | Random Forest  | 0.0112   | 1.4          | -9%          | Robust to outliers                  |
