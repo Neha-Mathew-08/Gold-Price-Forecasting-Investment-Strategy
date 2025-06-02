@@ -83,8 +83,8 @@ A Streamlit-based interactive dashboard is provided to visualize and explore:
 | Model          | Test MSE | Sharpe Ratio | Max Drawdown | Notes                                |
 |----------------|----------|--------------|--------------|------------------------------------|
 | ARIMA          | 42196.4554451664  | 0.75          | -20.06%         | Test MSE: 42,196. Sharpe Ratio: 0.75 indicates good risk-adjusted returns. Max Drawdown: -20.06% shows moderate price dips. Overall, the model suggests stable long-term growth of gold prices.|
-| Prophet        | 0.0135   | 1.1          | -12%         | Captures trend and seasonality      |
-| XGBoost        | 0.0108   | 1.5          | -8%          | Handles non-linearities well         |
+| Prophet        | 0.0000055   | 1.7496         | -0.1132%         | Captures trend and seasonality      |
+| XGBoost        | 	0.000129   | 0.2027          | -0.1163         | Handles non-linearities well         |
 | Random Forest  | 0.0112   | 1.4          | -9%          | Robust to outliers                  |
 | LSTM           | 0.0099   | 1.6          | -7%          | Captures temporal dependencies best |
 | Transformer    | 0.0101   | 1.55         | -7.5%        | Powerful, needs more tuning         |
