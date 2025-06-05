@@ -116,6 +116,13 @@ Despite using only historical price data, the Prophet model significantly outper
 
 ---
 
+## Future Work
+
+Transformer Models: Future iterations of this project will explore attention-based models like Transformers in more depth, particularly as sequence modeling techniques continue to evolve in time series forecasting.
+
+Hyperparameter Optimization: Implementing techniques like Bayesian optimization or Optuna to further tune ML and DL models.
+
+Portfolio Constraints: Adding realistic constraints like transaction costs, slippage, and leverage to better simulate trading performance.
 
 ## License
 
