@@ -16,7 +16,7 @@ An interactive Streamlit dashboard is included for visualization and exploration
 - **Models Implemented:**  
   - Classical: ARIMA, Prophet  
   - Machine Learning: XGBoost, Random Forest  
-  - Deep Learning: LSTM, Transformer  
+  - Deep Learning: LSTM 
 
 ---
 
@@ -63,7 +63,7 @@ Why These Features?
 | **ARIMA / Prophet**         | Primarily raw `Price` time series                                           | These models are univariate or handle trend/seasonality; don’t use technical indicators as features directly. |
 | **Random Forest / XGBoost** | Price + All other features; handle non-linearity and interactions                                    |
 | **LSTM**                    | Scaled \[Price + All other features] sequences | Captures temporal dependencies, requires sequences with multiple features                                     |
-| **Transformer**             | Same as LSTM: sequences of scaled features                                  | Attention mechanism can learn complex dependencies across timesteps                                           |
+                                          |
 
 ## Interactive Dashboard
 
@@ -105,7 +105,6 @@ This interactive dashboard leverages a trained Prophet model to forecast gold pr
 | XGBoost        | 	0.000058   | 0.3721          | -9.79%        | Handles non-linearities well         |
 | Random Forest  | 0.000060   | 0.1877          | 0.0925         | Robust to outliers                  |
 | LSTM           | 	0.000063  | -0.5490         | -0.1463          | Captures temporal dependencies best |
-| Transformer    | 0.002020   | -0.5135        | -0.1463       | Powerful, needs more tuning         |
 
 ---
 
