@@ -84,21 +84,18 @@ A Streamlit-based interactive dashboard is provided to visualize and explore:
 |----------------|----------|--------------|--------------|------------------------------------|
 | ARIMA          | 42196.4554451664  | 0.75          | -20.06%         | Test MSE: 42,196. Sharpe Ratio: 0.75 indicates good risk-adjusted returns. Max Drawdown: -20.06% shows moderate price dips. Overall, the model suggests stable long-term growth of gold prices.|
 | Prophet        | 0.0000055   | 1.7496         | -0.1132%         | Captures trend and seasonality      |
-| XGBoost        | 	0.000129   | 0.2027          | -0.1163         | Handles non-linearities well         |
-| Random Forest  | 0.0112   | 1.4          | -9%          | Robust to outliers                  |
-| LSTM           | 0.0099   | 1.6          | -7%          | Captures temporal dependencies best |
-| Transformer    | 0.0101   | 1.55         | -7.5%        | Powerful, needs more tuning         |
+| XGBoost        | 	0.000058   | 0.3721          | -9.79%        | Handles non-linearities well         |
+| Random Forest  | 0.000060   | 0.1877          | 0.0925         | Robust to outliers                  |
+| LSTM           | 	0.000063  | -0.5490         | -0.1463          | Captures temporal dependencies best |
+| Transformer    | 0.002020   | -0.5135        | -0.1463       | Powerful, needs more tuning         |
 
 ---
 
 ## Model Selection Justification
 
-The **LSTM model** was selected as the best performing model for this task because:
+Among all models evaluated for gold price forecasting, **Prophet** outperformed with the **lowest Test MSE (0.0000055**), the **highest Sharpe Ratio (1.75)**, and the **smallest Max Drawdown (-0.11%)**, indicating both exceptional prediction accuracy and superior risk-adjusted returns. This suggests Prophet is the most reliable model for stable, long-term financial forecasting in this context.
 
-- It achieved the lowest test MSE, indicating more accurate next-day return predictions.  
-- Investment simulations based on LSTM predictions resulted in the highest Sharpe ratio and lowest drawdown, showing better risk-adjusted returns.  
-- Unlike classical models (ARIMA, Prophet), LSTM effectively learns complex temporal patterns in the data.  
-- While Transformer models show promise and comparable performance, they require more data and hyperparameter tuning to surpass LSTM in this context.
+Despite using only historical price data, the Prophet model significantly outperformed all others across key metrics. This highlights Prophet’s exceptional ability to model trend and seasonality effectively, even without engineered features — making it the most robust and reliable choice for stable, long-term gold price forecasting.
 
 ---
 
