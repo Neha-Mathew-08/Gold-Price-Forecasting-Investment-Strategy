@@ -67,14 +67,32 @@ Why These Features?
 
 ## Interactive Dashboard
 
-A Streamlit-based interactive dashboard is provided to visualize and explore:
+**Gold Price Forecast Dashboard**: 
 
-- Historical gold prices and technical indicators (SMA, RSI, MACD)  
-- Predictions from different models (ARIMA, Prophet, XGBoost, Random Forest, LSTM, Transformer)  
-- Simulated investment strategy performance and portfolio returns  
-- Model comparison metrics for informed decision making  
+This interactive dashboard leverages a trained Prophet model to forecast gold prices, providing a user-friendly interface for exploring historical data and future predictions.
 
+**Features**
 
+* **View Historical Gold Prices**:
+  Visualize past gold price trends through an intuitive line chart, helping you understand the market’s historical behavior.
+
+* **Upload Your Own Data**:
+  Easily upload your own CSV file containing gold prices (with required columns ds for dates and y for prices) to generate personalized forecasts.
+
+* **Adjustable Forecast Horizon**:
+  Select how many days into the future you want to forecast (from 7 up to 90 days) using a simple slider — see predictions tailored to your needs.
+
+* **Interactive Forecast Visualization**:
+  View forecasted gold prices plotted alongside historical data, including confidence intervals that indicate uncertainty ranges.
+
+* **Download Forecast Data**:
+  Export the forecasted results as a CSV file for further analysis or reporting.
+
+* **Forecast Components Breakdown**:
+  Understand the underlying factors influencing the forecast with detailed components plots, including trends and seasonality.
+
+* **Model Performance Metrics**:
+  Displays key metrics such as Test Mean Squared Error (MSE), Sharpe Ratio, and Max Drawdown to assess model accuracy and risk-adjusted returns.
 
 
 
